@@ -1,0 +1,23 @@
+{
+  "name": "electron-react-typescript",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Robin_f/electron-react-typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Robin_f/electron-react-typescript/issues"
+  },
+  "homepage": "https://gitlab.com/Robin_f/electron-react-typescript#README",
+  "dependencies": {
+    "electron": "^1.7.10"
+  }
+}

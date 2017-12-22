@@ -2,9 +2,13 @@
   "name": "electron-react-typescript",
   "version": "0.0.1",
   "description": "",
-  "main": "main.js",
+  "main": "./dist/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build-main": "webpack --config webpack.main.config.js",
+    "build-renderer": "webpack --config webpack.renderer.config.js",
+    "build": "npm run build-main && npm run build-renderer",
+    "prestart": "npm run build",
     "start": "electron ."
   },
   "repository": {
@@ -17,7 +21,13 @@
     "url": "https://gitlab.com/Robin_f/electron-react-typescript/issues"
   },
   "homepage": "https://gitlab.com/Robin_f/electron-react-typescript#README",
-  "dependencies": {
-    "electron": "^1.7.10"
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "electron": "^1.7.10",
+    "html-webpack-plugin": "^2.30.1",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
   }
 }

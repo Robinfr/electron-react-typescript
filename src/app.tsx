@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
 import World from './components/World';
+import store from './store';
 
 //Create main element
 const mainElement = document.createElement('div');
@@ -12,7 +14,9 @@ document.body.appendChild(mainElement);
 const render = (Component: () => JSX.Element) => {
     ReactDOM.render(
         <AppContainer>
-            <Component />
+            <Provider store={store}>
+                <Component />
+            </Provider>
         </AppContainer>,
         mainElement
     );

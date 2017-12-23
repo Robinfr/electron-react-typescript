@@ -12,6 +12,8 @@ const initialState: RootState = {
     }
 }
 
-export const rootReducer = combineReducers<RootState | undefined>({
+const rootReducer = combineReducers<RootState | undefined>({
     counter: counterReducer
 });
+
+export default rootReducer;

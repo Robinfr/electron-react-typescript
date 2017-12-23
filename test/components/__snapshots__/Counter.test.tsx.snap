@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter component renders correctly 1`] = `
+<div>
+  <p>
+    Current value: 
+    5
+  </p>
+  <p>
+    <button
+      onClick={[MockFunction]}
+    >
+      Increment
+    </button>
+    <button
+      onClick={[MockFunction]}
+    >
+      Decrement
+    </button>
+  </p>
+</div>
+`;

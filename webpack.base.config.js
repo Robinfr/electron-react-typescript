@@ -8,10 +8,11 @@ module.exports = {
         filename: '[name].js'
     },
     node: {
-        __dirname: false
+        __dirname: false,
+        __filename: false
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js', '.json']
     },
     devtool: 'source-map',
     plugins: [

@@ -13,7 +13,7 @@
     "prestart": "npm run build",
     "start": "electron .",
     "lint": "tslint 'src/**/*.{ts,tsx}' --project ./tsconfig.json",
-    "pretty": "prettier --config ./prettierrc --write 'src/**/*.{ts,tsx}'"
+    "pretty": "prettier --config ./.prettierrc --write 'src/**/*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",

@@ -10,17 +10,6 @@ module.exports = {
     node: {
         __dirname: false
     },
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                include: [
-                    path.resolve(__dirname, 'src')
-                ],
-                loader: 'awesome-typescript-loader'
-            }
-        ]
-    },
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
     },

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -6,7 +7,7 @@ const baseConfig = require('./webpack.base.config');
 
 module.exports = merge.smart(baseConfig, {
     target: 'electron-renderer',
-    entry: './src/app.ts',
+    entry: './src/app.tsx',
     module: {
         rules: [
             {
@@ -18,6 +19,12 @@ module.exports = merge.smart(baseConfig, {
                     path.resolve(__dirname, 'src', 'main.ts')
                 ],
                 loader: 'awesome-typescript-loader'
+            },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'source-map-loader'
             }
         ]
     },

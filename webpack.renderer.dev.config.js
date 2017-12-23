@@ -7,9 +7,23 @@ const baseConfig = require('./webpack.renderer.config');
 module.exports = merge.smart(baseConfig, {
     target: 'electron-renderer',
     entry: [
-        //'react-hot-loader/patch',
-        path.join(__dirname, 'src/app.ts'),
-      ],
+        'react-hot-loader/patch',
+        './src/app.tsx'
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                include: [
+                    path.resolve(__dirname, 'src')
+                ],
+                exclude: [
+                    path.resolve(__dirname, 'src', 'main.ts')
+                ],
+                loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader']
+            }
+        ]
+    },
     plugins: [
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()

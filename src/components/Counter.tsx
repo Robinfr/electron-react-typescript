@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { StatelessComponent, SFC } from 'react';
 import { IncrementAction, DecrementAction, CounterAction } from '../actions/counterActions';
 
 export interface Props {
@@ -9,7 +8,7 @@ export interface Props {
     decrementValue: () => DecrementAction;
 }
 
-const Counter: SFC<Props> = ({ value, incrementValue, decrementValue }) => (
+const Counter: React.SFC<Props> = ({ value, incrementValue, decrementValue }) => (
     <div>
         <p>Current value: {value}</p>
         <p>

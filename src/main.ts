@@ -14,7 +14,7 @@ const installExtensions = async () => {
 
     return Promise
         .all(extensions.map(name => installer.default(installer[name], forceDownload)))
-        .catch(console.log)
+        .catch(console.log);
 };
 
 const createWindow = async () => {
@@ -34,7 +34,7 @@ const createWindow = async () => {
         }));
     }
 
-    //Open DevTools
+    // Open DevTools
     win.webContents.openDevTools();
 
     win.on('closed', () => {

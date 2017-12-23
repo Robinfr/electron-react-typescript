@@ -20,6 +20,14 @@ module.exports = merge.smart(baseConfig, {
                 ],
                 loader: 'awesome-typescript-loader'
             },
+            {
+                test: /\.scss$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
+            },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
                 enforce: 'pre',

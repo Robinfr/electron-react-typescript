@@ -4,8 +4,8 @@ import { IncrementAction, DecrementAction, CounterAction } from '../actions/coun
 export interface Props {
     value: number;
 
-    incrementValue: () => IncrementAction;
-    decrementValue: () => DecrementAction;
+    incrementValue: () => any;
+    decrementValue: () => any;
 }
 
 const Counter: React.SFC<Props> = ({ value, incrementValue, decrementValue }) => (

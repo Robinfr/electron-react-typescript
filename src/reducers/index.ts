@@ -1,6 +1,6 @@
 import { Reducer, combineReducers } from 'redux';
 
-import { CounterState as CounterState, counterReducer } from './counterReducer';
+import { CounterState, counterReducer } from './counterReducer';
 
 export interface RootState {
     counter: CounterState;

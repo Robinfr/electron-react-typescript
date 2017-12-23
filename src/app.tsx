@@ -27,7 +27,7 @@ render(World);
 // Hot Module Replacement API
 if (typeof module.hot !== 'undefined') {
     module.hot.accept('./components/World', () => {
-        import('./components/World').then((World) => {
+        import('./components/World').then(World => {
             render(World.default);
         });
     });

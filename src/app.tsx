@@ -6,11 +6,11 @@ import { AppContainer } from 'react-hot-loader';
 import World from './components/World';
 import store from './store';
 
-//Create main element
+// Create main element
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
-//Render components
+// Render components
 const render = (Component: () => JSX.Element) => {
     ReactDOM.render(
         <AppContainer>
@@ -20,14 +20,14 @@ const render = (Component: () => JSX.Element) => {
         </AppContainer>,
         mainElement
     );
-}
+};
 
 render(World);
 
 // Hot Module Replacement API
-if (module.hot) {
+if (typeof module.hot !== 'undefined') {
     module.hot.accept('./components/World', () => {
-        import('./components/World').then(World => {
+        import('./components/World').then((World) => {
             render(World.default);
         });
     });

@@ -1,7 +1,9 @@
 import * as React from 'react';
 
-export default () => (
+const World =  () => (
     <div>
         Hello World from Electron!
     </div>
 );
+
+export default World;

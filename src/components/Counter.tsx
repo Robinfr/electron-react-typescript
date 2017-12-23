@@ -1,5 +1,8 @@
 import * as React from 'react';
+
 import { IncrementAction, DecrementAction, CounterAction } from '../actions/counterActions';
+
+import './Counter.scss';
 
 export interface Props {
     value: number;
@@ -9,7 +12,7 @@ export interface Props {
 }
 
 const Counter: React.SFC<Props> = ({ value, incrementValue, decrementValue }) => (
-    <div>
+    <div className="counter">
         <p>Current value: {value}</p>
         <p>
             <button onClick={incrementValue}>Increment</button>

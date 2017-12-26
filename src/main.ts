@@ -15,13 +15,13 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
         await installExtensions();
     }
 
     win = new BrowserWindow({ width: 800, height: 600 });
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
         win.loadURL(`http://localhost:2003`);
     } else {
         win.loadURL(
@@ -33,8 +33,10 @@ const createWindow = async () => {
         );
     }
 
-    // Open DevTools
-    win.webContents.openDevTools();
+    if (process.env.NODE_ENV !== 'production') {
+        // Open DevTools
+        win.webContents.openDevTools();
+    }
 
     win.on('closed', () => {
         win = null;

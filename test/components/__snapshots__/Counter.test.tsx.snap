@@ -1,10 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Counter component renders correctly 1`] = `
-<div>
+<div
+  className="counter"
+>
+  <p>
+    <img
+      src="test-file-stub"
+    />
+  </p>
   <p>
     Current value: 
-    5
+    1
   </p>
   <p>
     <button

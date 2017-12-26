@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
-import World from './components/World';
+import Application from './components/Application';
 import store from './store';
 
 // Create main element
@@ -22,12 +22,12 @@ const render = (Component: () => JSX.Element) => {
     );
 };
 
-render(World);
+render(Application);
 
 // Hot Module Replacement API
 if (typeof module.hot !== 'undefined') {
-    module.hot.accept('./components/World', () => {
-        import('./components/World').then(World => {
+    module.hot.accept('./components/Application', () => {
+        import('./components/Application').then(World => {
             render(World.default);
         });
     });

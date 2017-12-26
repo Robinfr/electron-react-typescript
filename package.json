@@ -13,7 +13,10 @@
         "start": "electron .",
         "lint": "tslint '{src,test,mocks}/**/*.{ts,tsx}' --project ./tsconfig.json",
         "precommit": "lint-staged",
-        "test": "jest"
+        "test": "jest",
+        "pack": "npm run build && electron-builder --dir",
+        "dist": "npm run build && electron-builder",
+        "postinstall": "electron-builder install-app-deps"
     },
     "lint-staged": {
         "{src,test,mocks}/**/*.{js,ts,tsx,json,css,scss,md}": [
@@ -42,11 +45,35 @@
             "\\.(s?css|sass)$": "<rootDir>/mocks/styleMock.js"
         }
     },
+    "build": {
+        "productName": "ProductName",
+        "appId": "org.your.productname",
+        "mac": {
+            "category": "your.app.category.type"
+        },
+        "directories": {
+            "output": "release"
+        },
+        "files": [
+            "dist/",
+            "node_modules/",
+            "package.json"
+        ],
+        "linux": {
+            "target": "deb"
+        },
+        "win": {
+            "target": "nsis"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+ssh://git@gitlab.com/Robin_f/electron-react-typescript.git"
     },
-    "author": "",
+    "author": {
+        "name": "Your name",
+        "email": "Your email"
+    },
     "license": "ISC",
     "bugs": {
         "url": "https://gitlab.com/Robin_f/electron-react-typescript/issues"
@@ -64,6 +91,7 @@
         "awesome-typescript-loader": "^3.4.1",
         "css-loader": "^0.28.7",
         "electron": "^1.7.10",
+        "electron-builder": "^19.49.2",
         "electron-devtools-installer": "^2.2.3",
         "file-loader": "^1.1.6",
         "html-webpack-plugin": "^2.30.1",

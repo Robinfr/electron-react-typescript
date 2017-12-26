@@ -4,8 +4,8 @@
     "description": "",
     "main": "./dist/main.js",
     "scripts": {
-        "build-main": "NODE_ENV=production webpack --config webpack.main.config.js",
-        "build-renderer": "NODE_ENV=production webpack --config webpack.renderer.config.js",
+        "build-main": "NODE_ENV=production webpack --config webpack.main.prod.config.js",
+        "build-renderer": "NODE_ENV=production webpack --config webpack.renderer.prod.config.js",
         "build": "npm run build-main && npm run build-renderer",
         "renderer-dev": "webpack-dev-server --config webpack.renderer.dev.config.js",
         "main-dev": "webpack --config webpack.main.config.js && electron ./dist/main.js",
@@ -113,6 +113,7 @@
         "tslint-config-prettier": "^1.6.0",
         "tslint-react": "^3.2.0",
         "typescript": "^2.6.2",
+        "uglifyjs-webpack-plugin": "^1.1.4",
         "webpack": "^3.10.0",
         "webpack-dev-server": "^2.9.7",
         "webpack-merge": "^4.1.1"

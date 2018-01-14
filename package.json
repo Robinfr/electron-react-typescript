@@ -13,7 +13,9 @@
         "start": "electron .",
         "lint": "tslint '{src,test,mocks}/**/*.{ts,tsx}' --project ./tsconfig.json",
         "precommit": "lint-staged",
-        "test": "jest",
+        "test": "jest '(\\/test\\/(?!e2e/)).*'",
+        "pretest:e2e": "npm run build",
+        "test:e2e": "jest '(\\/test\\/e2e/).*'",
         "pack": "npm run build && electron-builder --dir",
         "dist": "npm run build && electron-builder",
         "postinstall": "electron-builder install-app-deps"
@@ -32,7 +34,7 @@
         "transform": {
             "^.+\\.tsx?$": "ts-jest"
         },
-        "testRegex": "(/test/.*(\\.|/)test)\\.tsx?$",
+        "testRegex": "(/test/.+\\.spec)\\.tsx?$",
         "moduleFileExtensions": [
             "ts",
             "tsx",
@@ -87,6 +89,7 @@
         "@types/react-hot-loader": "^3.0.5",
         "@types/react-redux": "^5.0.14",
         "@types/react-test-renderer": "^16.0.0",
+        "@types/webdriverio": "^4.8.7",
         "@types/webpack-env": "^1.13.3",
         "awesome-typescript-loader": "^3.4.1",
         "css-loader": "^0.28.7",
@@ -106,6 +109,7 @@
         "redux-devtools-extension": "^2.13.2",
         "sass-loader": "^6.0.6",
         "source-map-loader": "^0.2.3",
+        "spectron": "^3.7.2",
         "style-loader": "^0.19.1",
         "ts-jest": "^22.0.0",
         "tslint": "^5.8.0",

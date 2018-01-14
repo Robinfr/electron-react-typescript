@@ -9,17 +9,21 @@ exports[`Counter component renders correctly 1`] = `
       src="test-file-stub"
     />
   </p>
-  <p>
+  <p
+    id="counter-value"
+  >
     Current value: 
     1
   </p>
   <p>
     <button
+      id="increment"
       onClick={[MockFunction]}
     >
       Increment
     </button>
     <button
+      id="decrement"
       onClick={[MockFunction]}
     >
       Decrement

@@ -17,10 +17,14 @@ const Counter: React.SFC<Props> = ({ value, incrementValue, decrementValue }) =>
         <p>
             <img src={redCubeImg} />
         </p>
-        <p>Current value: {value}</p>
+        <p id="counter-value">Current value: {value}</p>
         <p>
-            <button onClick={incrementValue}>Increment</button>
-            <button onClick={decrementValue}>Decrement</button>
+            <button id="increment" onClick={incrementValue}>
+                Increment
+            </button>
+            <button id="decrement" onClick={decrementValue}>
+                Decrement
+            </button>
         </p>
     </div>
 );

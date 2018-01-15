@@ -15,7 +15,7 @@
 Clone the repository with Git:
 
 ```bash
-git clone --depth=1 git@gitlab.com:Robin_f/electron-react-typescript.git <your-project-name>
+git clone --depth=1 git@github.com:Robinfr/electron-react-typescript.git <your-project-name>
 ```
 
 And then install the dependencies:

@@ -71,7 +71,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/Robin_f/electron-react-typescript.git"
+    "url": "git+ssh://git@github.com:Robinfr/electron-react-typescript.git"
   },
   "author": {
     "name": "Your name",
@@ -79,9 +79,9 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/Robin_f/electron-react-typescript/issues"
+    "url": "https://github.com/Robinfr/electron-react-typescript/issues"
   },
-  "homepage": "https://gitlab.com/Robin_f/electron-react-typescript#README",
+  "homepage": "https://github.com/Robinfr/electron-react-typescript",
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/jest": "^21.1.9",

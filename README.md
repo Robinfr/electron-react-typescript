@@ -50,8 +50,19 @@ You can make builds for specific platforms (or multiple platforms) by using the 
 npm run dist -- -mwl
 ```
 
+## Husky and Prettier
+This project comes with both Husky and Prettier setup to ensure a consistent code style. 
+
+To change the code style, you can change the configuration in `.prettierrc`. 
+
+In case you want to get rid of this, you can removing the following from `package.json`:
+
+1. Remove `precommit` from the `scripts` section
+1. Remove the `lint-staged` section
+1. Remove `lint-staged`, `prettier`, and `husky` from the `devDependencies`
+
 ## About this project
-This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate).
+This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate).Robin
 
 ## License
 MIT © [R. Franken](https://github.com/Robinfr)

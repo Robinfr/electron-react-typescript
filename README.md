@@ -65,7 +65,9 @@ In case you want to get rid of this, you can removing the following from `packag
 
 1. Remove `precommit` from the `scripts` section
 1. Remove the `lint-staged` section
-1. Remove `lint-staged`, `prettier`, and `husky` from the `devDependencies`
+1. Remove `lint-staged`, `prettier`, `tslint-config-prettier`, and `husky` from the `devDependencies`
+
+Also remove `tslint-config-prettier` from the `extends` section in `tslint.json`.
 
 ## About this project
 This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate).Robin

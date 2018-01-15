@@ -49,3 +49,9 @@ You can make builds for specific platforms (or multiple platforms) by using the 
 ```bash
 npm run dist -- -mwl
 ```
+
+## About this project
+This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate).
+
+## License
+MIT © [R. Franken](https://github.com/Robinfr)

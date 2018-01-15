@@ -35,6 +35,12 @@ npm run start-main-dev
 
 This will start the application with hot-reload so you can instantly start developing your application.
 
+You can also run do the following to start both in a single process:
+
+```bash
+npm run start-dev
+```
+
 ## Packaging
 We use [Electron builder](https://www.electron.build/) to build and package the application. By default you can run the following to package for your current platform:
 

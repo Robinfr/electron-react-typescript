@@ -70,7 +70,7 @@ In case you want to get rid of this, you can removing the following from `packag
 Also remove `tslint-config-prettier` from the `extends` section in `tslint.json`.
 
 ## About this project
-This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate).Robin
+This project was set up from scratch but is heavily influenced by the [Electron React Boilerplate project](https://github.com/chentsulin/electron-react-boilerplate) and [React Redux TypeScript guide](https://github.com/piotrwitek/react-redux-typescript-guide).
 
 ## License
 MIT © [R. Franken](https://github.com/Robinfr)

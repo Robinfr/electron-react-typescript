@@ -1,4 +1,5 @@
-import { Dispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import Counter from '../components/Counter';
 import { RootState } from '../reducers';

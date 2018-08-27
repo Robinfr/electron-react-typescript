@@ -6,7 +6,7 @@ import { rootReducer, RootState } from '../reducers';
 const configureStore = (initialState?: RootState): Store<RootState | undefined> => {
     const middlewares: any[] = [];
     const enhancer = composeWithDevTools(applyMiddleware(...middlewares));
-    return createStore<RootState | undefined>(rootReducer, initialState, enhancer);
+    return createStore(rootReducer, initialState, enhancer);
 };
 
 const store = configureStore();

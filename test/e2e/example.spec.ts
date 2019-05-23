@@ -32,7 +32,7 @@ describe('Main window', () => {
     });
 
     it('increments the counter', async () => {
-        const { client, browserWindow } = app;
+        const { client } = app;
 
         await client.waitUntilWindowLoaded();
         await client.click('#increment');
@@ -43,7 +43,7 @@ describe('Main window', () => {
     });
 
     it('decrements the counter', async () => {
-        const { client, browserWindow } = app;
+        const { client } = app;
 
         await client.waitUntilWindowLoaded();
         await client.click('#decrement');

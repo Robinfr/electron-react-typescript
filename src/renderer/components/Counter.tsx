@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { IncrementAction, DecrementAction, CounterAction } from '../actions/counterActions';
-
 require('./Counter.scss');
 const redCubeImg = require('./RedCube.jpg');
 
@@ -12,7 +10,7 @@ export interface Props {
     decrementValue: () => any;
 }
 
-const Counter: React.SFC<Props> = ({ value, incrementValue, decrementValue }) => (
+const Counter: React.FunctionComponent<Props> = ({ value, incrementValue, decrementValue }) => (
     <div className="counter">
         <p>
             <img src={redCubeImg} />

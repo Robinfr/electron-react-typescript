@@ -22,6 +22,7 @@ const createWindow = async () => {
     win = new BrowserWindow({ width: 800, height: 600 });
 
     if (process.env.NODE_ENV !== 'production') {
+        process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1';
         win.loadURL(`http://localhost:2003`);
     } else {
         win.loadURL(
@@ -34,8 +35,10 @@ const createWindow = async () => {
     }
 
     if (process.env.NODE_ENV !== 'production') {
-        // Open DevTools
-        win.webContents.openDevTools();
+        // Open DevTools, see https://github.com/electron/electron/issues/12438 for why we wait for dom-ready
+        win.webContents.once('dom-ready', () => {
+            win!.webContents.openDevTools();
+        });
     }
 
     win.on('closed', () => {

@@ -1,23 +1,14 @@
-const path = require('path');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const spawn = require('child_process').spawn;
 
 const baseConfig = require('./webpack.renderer.config');
 
 module.exports = merge.smart(baseConfig, {
-    entry: ['react-hot-loader/patch', './src/app.tsx'],
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                include: [path.resolve(__dirname, 'src')],
-                exclude: [path.resolve(__dirname, 'src', 'main.ts')],
-                loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader']
-            }
-        ]
+    resolve: {
+        alias: {
+            'react-dom': '@hot-loader/react-dom'
+        }
     },
-    plugins: [new webpack.NamedModulesPlugin(), new webpack.HotModuleReplacementPlugin()],
     devServer: {
         port: 2003,
         compress: true,

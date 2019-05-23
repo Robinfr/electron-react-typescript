@@ -1,4 +1,4 @@
-import { Reducer, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 
 import { CounterState, counterReducer } from './counterReducer';
 

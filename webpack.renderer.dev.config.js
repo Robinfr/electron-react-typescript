@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const merge = require('webpack-merge');
 const spawn = require('child_process').spawn;
 

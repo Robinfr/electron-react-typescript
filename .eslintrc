@@ -1,0 +1,83 @@
+{
+  "root": true,
+  "plugins": ["eslint-plugin", "@typescript-eslint", "jest"],
+  "env": {
+    "es6": true,
+    "jest": true,
+    "browser": true
+  },
+  "globals": {
+    "win": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".json", ".tsx", ".d.ts", ".js"]
+      }
+    }
+  },
+  "rules": {
+    "max-len": ["error", {"code": 120 }],
+    "comma-dangle": "error",
+    "@typescript-eslint/indent": "off",
+    "prefer-default-export": "off",
+    "import/prefer-default-export": "off",
+    "indent": ["error", 4],
+    "camelcase": "error",
+    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-equals-spacing": [2, "never"],
+    "react/no-string-refs": "error",
+    "react/self-closing-comp": "error",
+    "import/no-extraneous-dependencies": "off",
+    "global-require": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/prop-types": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "overrides": [{
+    "files": [
+      "nodes_modules/eslint-plugin-tslint/tests/**/*.ts",
+      "nodes_modules/eslint-plugin/tests/**/*.test.ts",
+      "nodes_modules/parser/tests/**/*.ts",
+      "nodes_modules/typescript-estree/tests/**/*.ts"
+    ],
+    "rules": {
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-alias-methods": "error",
+      "jest/no-identical-title": "error",
+      "jest/no-jasmine-globals": "error",
+      "jest/no-jest-import": "error",
+      "jest/no-test-prefixes": "error",
+      "jest/no-test-callback": "error",
+      "jest/no-test-return-statement": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/prefer-spy-on": "error",
+      "jest/valid-expect": "error"
+    }
+  },
+    {
+      "files": [
+        "nodes_modules/eslint-plugin/test/**/*.ts",
+        "nodes_modules/eslint-plugin-tslint/tests/**/*.spec.ts"
+      ],
+      "rules": {
+        "eslint-plugin/no-identical-tests": "error"
+      }
+    }
+  ]
+}

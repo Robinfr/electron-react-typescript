@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use strict';
 
 const path = require('path');

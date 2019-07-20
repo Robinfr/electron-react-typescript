@@ -18,7 +18,7 @@ const render = (Component: () => JSX.Element) => {
                 <Component />
             </Provider>
         </AppContainer>,
-        mainElement
+        mainElement,
     );
 };
 

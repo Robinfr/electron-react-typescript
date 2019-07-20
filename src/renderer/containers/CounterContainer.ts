@@ -6,12 +6,15 @@ import { RootState } from '../reducers';
 import { CounterAction, decrement, increment } from '../actions/counterActions';
 
 const mapStateToProps = (state: RootState) => ({
-    value: state.counter.value
+    value: state.counter.value,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<CounterAction>) => ({
     incrementValue: () => dispatch(increment()),
-    decrementValue: () => dispatch(decrement())
+    decrementValue: () => dispatch(decrement()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Counter);

@@ -7,5 +7,5 @@ export interface RootState {
 }
 
 export const rootReducer = combineReducers<RootState | undefined>({
-    counter: counterReducer
+    counter: counterReducer,
 });

@@ -11,11 +11,11 @@ export interface DecrementAction extends Action {
 }
 
 export const increment: ActionCreator<IncrementAction> = () => ({
-    type: INCREMENT
+    type: INCREMENT,
 });
 
 export const decrement: ActionCreator<DecrementAction> = () => ({
-    type: DECREMENT
+    type: DECREMENT,
 });
 
 export type CounterAction = IncrementAction | DecrementAction;

@@ -37,13 +37,12 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "global-require": 0,
     "import/prefer-default-export": 0,
     "import/no-useless-path-segments": 1,
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-named-as-default": 0,
-    "import/no-duplicates": 0,
-    "import/order": 0,
     "import/newline-after-import": 1,
     "import/no-named-as-default-member": 0,
     "import/namespace": 0,
@@ -91,7 +90,6 @@
     "react/static-property-placement": 0,
     "react/state-in-constructor": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "global-require": 0,
     "@typescript-eslint/indent": 0,
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/explicit-function-return-type": 0,

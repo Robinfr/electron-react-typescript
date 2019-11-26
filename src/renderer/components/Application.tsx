@@ -1,7 +1,8 @@
 import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-
+import { createStyles, makeStyles, Theme, fade } from '@material-ui/core/styles'
+import styled, { ThemeProvider } from 'styled-components'
+import { createMuiTheme } from '@material-ui/core/styles';
 import clsx from 'clsx'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -19,9 +20,14 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Link from '@material-ui/core/Link'
 import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import NotificationsIcon from '@material-ui/icons/Notifications'
+import InputBase from '@material-ui/core/InputBase'
+import Avatar from '@material-ui/core/Avatar'
 import { mainListItems, secondaryListItems } from './ListItems'
+
+import Logo from '../assets/images/linkedin_avatar_small.png'
 
 var PizZip = require('pizzip');
 var Docxtemplater = require('docxtemplater');
@@ -35,9 +41,14 @@ var path = require('path');
 
 
 
+// const theme = createMuiTheme();
 
-
-
+const theme = {
+  spacing: 4,
+  palette: {
+    primary: '#ff004f',
+  },
+}
 
 
 // import Chart from './Chart'
@@ -47,6 +58,9 @@ const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    flexgrow: {
+      flexGrow: 1,
+    },
     root: {
       display: 'flex',
       flexGrow: 1,
@@ -76,8 +90,67 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
+    search: {
+      // minWidth: 300,
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      marginLeft: 20,
+      marginRight: 0,
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+      },
+    },
+    searchIcon: {
+      width: theme.spacing(7),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    inputRoot: {
+      color: 'inherit',
+    },
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 7),
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: 120,
+        '&:focus': {
+          width: 200,
+        },
+      },
+    },
+    topbarAvatar: {
+      marginLeft: '20px'
+    },
+
+
     title: {
-      flexGrow: 1,
+      // flexGrow: 1,
+      paddingRight: 20,
+    },
+    logo: {
+      position: 'absolute',
+      left: '19px',
+      top: '17px',
+      color: "#ff004f",
+      fontWeight: "bold",
+      width: '75px',
+      opacity: 1,
+      transition: '.3s opacity',
+
+      '& > img': {
+        width: '100%',
+      }
     },
     drawerPaper: {
       position: 'relative',
@@ -98,6 +171,13 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         width: theme.spacing(9),
       },
+
+      '& $logo': {
+        opacity: 0,
+      },
+    },
+    drawerFirstMenu: {
+      paddingTop: '50px'
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -148,8 +228,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="http://dylanbishop.me/">
+        Dylan Bishop Media, LLC
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -219,78 +299,99 @@ const Application = () => {
   }
 
   return (
-  <div className={classes.root}>
-    <CssBaseline />
 
-    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          devcrm
-        </Typography>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-      </Toolbar>
-      </AppBar>
+  <ThemeProvider theme={theme}>
 
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-      }}
-      open={open}
-    >
-      <div className={classes.toolbarIcon}>
-        <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-      </div>
-      <Divider />
-      <List>{mainListItems}</List>
-      <Divider />
-      <List>{secondaryListItems}</List>
-    </Drawer>
+    <div className={classes.root}>
+      <CssBaseline />
 
-    <main className={classes.content}>
-      <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3}>
-          {/* Chart */}
-          <Grid item xs={12} md={12} lg={12}>
-            <Paper className={classes.paper}>
-              <CustomerForm initialValues={initialCustomerValues} onSubmitForm={onSubmitCustomerForm}/>
-            </Paper>
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            Customers
+          </Typography>
+
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+
+          <div className={classes.flexgrow}></div>
+
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+
+          <Avatar alt="Dylan Bishop" src={Logo} className={classes.topbarAvatar} />
+        </Toolbar>
+        </AppBar>
+
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        }}
+        open={open}
+      >
+        <div className={classes.logo}>
+          <img src={Logo} alt="devcrm"/>
+        </div>
+        <div className={classes.toolbarIcon}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List className={classes.drawerFirstMenu}>{mainListItems}</List>
+        <Divider />
+        <List>{secondaryListItems}</List>
+      </Drawer>
+
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+
+            <Grid item xs={12} md={12} lg={12}>
+              <Paper className={classes.paper}>
+                <CustomerForm initialValues={initialCustomerValues} onSubmitForm={onSubmitCustomerForm}/>
+              </Paper>
+            </Grid>
+
+            {/* <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                asdf
+              </Paper>
+            </Grid> */}
+
           </Grid>
-          {/* Recent Deposits */}
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>
-              {/* <Deposits /> */}asdf
-            </Paper>
-          </Grid>
-          {/* Recent Orders */}
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              {/* <Orders /> */}asdf
-            </Paper>
-          </Grid>
-        </Grid>
-        <Box pt={4}>
-          <Copyright />
-        </Box>
-      </Container>
-    </main>
-  </div>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
+    </div>
+  </ThemeProvider>
 )}
 
 export default hot(Application)

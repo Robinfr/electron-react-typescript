@@ -1,5 +1,6 @@
 import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
+import 'reflect-metadata';
 import { createStyles, makeStyles, Theme, fade } from '@material-ui/core/styles'
 import styled, { ThemeProvider } from 'styled-components'
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -33,7 +34,58 @@ var fs = require('fs-extra');
 var path = require('path');
 
 
+const sqlite3 = require('sqlite3').verbose();
+let sqliteDB = new sqlite3.Database('./database.sqlite3', (err: any) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database.');
+});
 
+import { createConnection } from 'typeorm';
+import { Company } from '../models/Company';
+
+const Logo = require('../assets/images/linkedin_avatar_small.png')
+
+
+createConnection({
+  type: 'sqlite',
+  database: sqliteDB,
+  // host: 'localhost',
+  // port: 3306,
+  // username: 'root',
+  // password: 'admin',
+  // database: 'test',
+  entities: [Company],
+  synchronize: true,
+  logging: false
+})
+.then(async connection => {
+  // here you can start to work with your entities
+  let company = new Company()
+  company.name = "ChickenStash, LLC"
+  company.nameShort = "Chicken"
+
+  await connection.manager.save(company);
+  console.log('Company has been saved');
+})
+.catch(error => console.log(error));
+
+// db.serialize(function() {
+//   db.run("CREATE TABLE lorem (info TEXT)");
+
+//   var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+//   for (var i = 0; i < 10; i++) {
+//     stmt.run("Ipsum " + i);
+//   }
+//   stmt.finalize();
+
+//   db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+//     console.log(row.id + ": " + row.info);
+//   });
+// });
+
+// db.close();
 
 
 

@@ -1,6 +1,6 @@
 // Render Prop
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage, InjectedFormikProps } from 'formik';
 // import TextInput from './TextInput'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
@@ -39,13 +39,31 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-// interface CustomerFormProps {
+// type CustomerFormProps = {
 //   initialValues: object;
 //   onSubmitForm(this: void): () => this;
 // }
 
-// const CustomerForm = (props: CustomerFormProps) => {
-const CustomerForm = props => {
+interface FormValues {
+  name: string;
+  email: string;
+  address_street: string;
+  address_city: string;
+  address_state: string;
+  address_zip: string;
+  business_type: string;
+  contact_primary_first_name: string;
+  contact_primary_last_name: string;
+  contact_primary_email: string;
+  contact_primary_role: string;
+}
+
+interface FormProps {
+  // login?: string;
+  onSubmitForm?: any
+}
+
+const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (props: FormProps) => {
   const {
     onSubmitForm
   } = props

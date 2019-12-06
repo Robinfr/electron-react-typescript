@@ -26,9 +26,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import InputBase from '@material-ui/core/InputBase'
 import Avatar from '@material-ui/core/Avatar'
 import { mainListItems, secondaryListItems } from './ListItems'
-
-import Logo from '../assets/images/linkedin_avatar_small.png'
-
 var PizZip = require('pizzip');
 var Docxtemplater = require('docxtemplater');
 
@@ -42,7 +39,6 @@ var path = require('path');
 
 
 // const theme = createMuiTheme();
-
 const theme = {
   spacing: 4,
   palette: {
@@ -237,13 +233,16 @@ function Copyright() {
   )
 }
 
-const generateDocx = (templateFile: string, outputDir: string, values: object) => {
+interface DocGenValues {
+  name: string;
+}
 
-  const { name } = values
+const generateDocx = (templateFile: string, outputDir: string, values: DocGenValues) => {
+
   //Load the docx file as a binary
   // return fs.readFile(path.resolve(__dirname, templateFile), 'binary')
   return fs.readFile(path.resolve(templateFile))
-    .then(content => {
+    .then((content: any) => {
       var zip = new PizZip(content);
       var doc = new Docxtemplater();
       doc.loadZip(zip);
@@ -272,11 +271,12 @@ const generateDocx = (templateFile: string, outputDir: string, values: object) =
 
       // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
       // fs.writeFileSync(path.resolve(__dirname, `${outputDir}${name.toLowerCase()}_output.docx`), buf);
-      return fs.writeFile(path.resolve(`${outputDir}${name.toLowerCase()}_output.docx`), buf)
+      return fs.writeFile(path.resolve(`${outputDir}${values.name.toLowerCase()}_output.docx`), buf)
     })
-    .catch(err => console.log(err))
+    .catch((err: any) => console.log(err))
 
 }
+
 
 
 const Application = () => {
@@ -290,13 +290,30 @@ const Application = () => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const onSubmitCustomerForm = (values: object, { setSubmitting }): void => {
-    generateDocx('docs/templates/msa.docx', 'docs/output/', values)
-    .then((res) => {
-      alert('')
-      setSubmitting(false)
-    })
+  interface CustomerFormValues {
+    name: string;
+    email: string;
+    address_street: string;
+    address_city: string;
+    address_state: string;
+    address_zip: string;
+    business_type: string;
+    contact_primary_first_name: string;
+    contact_primary_last_name: string;
+    contact_primary_email: string;
+    contact_primary_role: string;
   }
+
+  interface CustomerFormFunctions {
+    setSubmitting?: any;
+  }
+
+  const onSubmitCustomerForm = (values: CustomerFormValues, { setSubmitting }: CustomerFormFunctions ): void => {
+      generateDocx('docs/templates/msa.docx', 'docs/output/', values).then((res: any) => {
+          alert('');
+          setSubmitting(false);
+      });
+  };
 
   return (
 

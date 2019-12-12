@@ -1,0 +1,11 @@
+{
+  type: "sqljs",
+  synchronize: true,
+  autoSave: true,
+  logging: true,
+  logger: "advanced-console",
+  location: "database.sqlite",
+  "entities": [
+    "src/main/entities/**/*.js"
+  ]
+}

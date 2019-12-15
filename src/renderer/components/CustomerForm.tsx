@@ -1,6 +1,6 @@
 // Render Prop
 import React from 'react'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage, InjectedFormikProps } from 'formik';
 // import TextInput from './TextInput'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
@@ -39,13 +39,45 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-// interface CustomerFormProps {
+// type CustomerFormProps = {
 //   initialValues: object;
 //   onSubmitForm(this: void): () => this;
 // }
 
-// const CustomerForm = (props: CustomerFormProps) => {
-const CustomerForm = props => {
+interface FormValues {
+  name: string;
+  nameShort: string;
+  phone_primary: string;
+  phone_secondary: string;
+  phone_tertiary: string;
+  email_primary: string;
+  email_secondary: string;
+  website_primary: string;
+  website_secondary: string;
+  // social!: {
+  //   github: string;
+  //   gitlab: string;
+  //   bitbucket: string;
+  //   linkedin: string;
+  // };
+  address_street: string;
+  address_city: string;
+  address_state: string;
+  address_zip: string;
+  business_type: string;
+  business_type_state: string;
+  // contact_primary_first_name: string;
+  // contact_primary_last_name: string;
+  // contact_primary_email: string;
+  // contact_primary_role: string;
+}
+
+interface FormProps {
+  // login?: string;
+  onSubmitForm?: any
+}
+
+const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (props: FormProps) => {
   const {
     onSubmitForm
   } = props
@@ -78,16 +110,30 @@ const CustomerForm = props => {
     <Formik
       initialValues={{
         name: '',
-        email: '',
+        nameShort: '',
+        phone_primary: '',
+        phone_secondary: '',
+        phone_tertiary: '',
+        email_primary: '',
+        email_secondary: '',
+        website_primary: '',
+        website_secondary: '',
+        // social!: {
+        //   github: '',
+        //   gitlab: '',
+        //   bitbucket: '',
+        //   linkedin: '',
+        // };
         address_street: '',
         address_city: '',
         address_state: '',
         address_zip: '',
         business_type: '',
-        contact_primary_first_name: '',
-        contact_primary_last_name: '',
-        contact_primary_email: '',
-        contact_primary_role: '',
+        business_type_state: '',
+        // contact_primary_first_name: '',
+        // contact_primary_last_name: '',
+        // contact_primary_email: '',
+        // contact_primary_role: '',
       }}
       validate={values => {
         const errors = {}
@@ -136,11 +182,84 @@ const CustomerForm = props => {
               <ErrorMessage name="name" component="div" />
             </Grid>
 
-            {/* Email */}
+            {/* shortname */}
+            <Grid item sm={12} md={6}>
+              <Field
+                type="text"
+                name="nameShort"
+                label="Short name"
+                // defaultValue="Default Value"
+                helperText="A short abbreviated name"
+                margin="normal"
+                variant="outlined"
+                required
+
+                className={classes.textField}
+                component={TextField}
+              />
+
+              <ErrorMessage name="nameShort" component="div" />
+            </Grid>
+
+            {/* phone_primary */}
+            <Grid item sm={12} md={6}>
+              <Field
+                type="text"
+                name="phone_primary"
+                label="Phone Number"
+                // defaultValue="Default Value"
+                helperText=""
+                margin="normal"
+                variant="outlined"
+
+                className={classes.textField}
+                component={TextField}
+              />
+
+              <ErrorMessage name="phone_primary" component="div" />
+            </Grid>
+
+            {/* phone_secondary */}
+            <Grid item sm={12} md={6}>
+              <Field
+                type="text"
+                name="phone_secondary"
+                label="Phone Number"
+                // defaultValue="Default Value"
+                helperText=""
+                margin="normal"
+                variant="outlined"
+
+                className={classes.textField}
+                component={TextField}
+              />
+
+              <ErrorMessage name="phone_secondary" component="div" />
+            </Grid>
+
+            {/* phone_tertiary */}
+            <Grid item sm={12} md={6}>
+              <Field
+                type="text"
+                name="phone_tertiary"
+                label="Phone Number"
+                // defaultValue="Default Value"
+                helperText=""
+                margin="normal"
+                variant="outlined"
+
+                className={classes.textField}
+                component={TextField}
+              />
+
+              <ErrorMessage name="phone_tertiary" component="div" />
+            </Grid>
+
+            {/* email_primary */}
             <Grid item sm={12} md={6}>
               <Field
                 type="email"
-                name="email"
+                name="email_primary"
                 label="Customer Primary Email"
                 // defaultValue="Default Value"
                 helperText="The primary email which will recieve important documents."
@@ -151,9 +270,64 @@ const CustomerForm = props => {
                 className={classes.textField}
                 component={TextField}
               />
-              <ErrorMessage name="email" component="div" />
+              <ErrorMessage name="email_primary" component="div" />
+            </Grid>
+
+            {/* email_secondary */}
+            <Grid item sm={12} md={6}>
+              <Field
+                type="email"
+                name="email_secondary"
+                label="Customer Primary Email"
+                // defaultValue="Default Value"
+                helperText="The primary email which will recieve important documents."
+                margin="normal"
+                variant="outlined"
+
+                className={classes.textField}
+                component={TextField}
+              />
+              <ErrorMessage name="email_secondary" component="div" />
             </Grid>
           </Grid>
+
+          {/* website_primary */}
+          <Grid item sm={12} md={6}>
+            <Field
+              type="text"
+              name="website_primary"
+              label="Website (primary)"
+              // defaultValue="Default Value"
+              helperText=""
+              margin="normal"
+              variant="outlined"
+
+              className={classes.textField}
+              component={TextField}
+            />
+
+            <ErrorMessage name="website_primary" component="div" />
+          </Grid>
+
+          {/* website_secondary */}
+          <Grid item sm={12} md={6}>
+            <Field
+              type="text"
+              name="website_secondary"
+              label="Website (secondary)"
+              // defaultValue="Default Value"
+              helperText=""
+              margin="normal"
+              variant="outlined"
+
+              className={classes.textField}
+              component={TextField}
+            />
+
+            <ErrorMessage name="website_secondary" component="div" />
+          </Grid>
+
+
 
           <Grid container spacing={3}>
             {/* Street */}
@@ -166,7 +340,6 @@ const CustomerForm = props => {
                 helperText="The primary customer address street name."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -186,7 +359,6 @@ const CustomerForm = props => {
                 helperText="The primary customer address city name."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -230,7 +402,6 @@ const CustomerForm = props => {
                 helperText="The primary customer address zip code."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -278,7 +449,6 @@ const CustomerForm = props => {
                 helperText="The primary customer contact."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -296,7 +466,6 @@ const CustomerForm = props => {
                 helperText="The primary customer contact."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -317,7 +486,6 @@ const CustomerForm = props => {
                 helperText="The primary customer contact."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}
@@ -335,7 +503,6 @@ const CustomerForm = props => {
                 helperText="The primary customer contact role."
                 margin="normal"
                 variant="outlined"
-                required
 
                 className={classes.textField}
                 component={TextField}

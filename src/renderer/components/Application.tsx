@@ -1,6 +1,5 @@
 import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
-import 'reflect-metadata';
 import { createStyles, makeStyles, Theme, fade } from '@material-ui/core/styles'
 import styled, { ThemeProvider } from 'styled-components'
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -26,50 +25,57 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import InputBase from '@material-ui/core/InputBase'
 import Avatar from '@material-ui/core/Avatar'
+
+import CustomerForm from './CustomerForm'
+import CompanyList from './CompanyList'
 import { mainListItems, secondaryListItems } from './ListItems'
+import { Company } from '../../main/entities/Company'
+
 var PizZip = require('pizzip');
 var Docxtemplater = require('docxtemplater');
 
 var fs = require('fs-extra');
 var path = require('path');
 
+const orm = (window as any).typeorm
+// const dbconnection = window['dbconnection']
 
-const sqlite3 = require('sqlite3').verbose();
-let sqliteDB = new sqlite3.Database('./database.sqlite3', (err: any) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Connected to the in-memory SQlite database.');
-});
-
-import { createConnection } from 'typeorm';
-import { Company } from '../models/Company';
+// const sqlite3 = require('sqlite3').verbose();
+// let sqliteDB = new sqlite3.Database('./database.sqlite3', (err: any) => {
+//   if (err) {
+//     return console.error(err.message);
+//   }
+//   console.log('Connected to the in-memory SQlite database.');
+// });
 
 const Logo = require('../assets/images/linkedin_avatar_small.png')
+// import { createConnection } from 'typeorm';
+// import { Company } from '../models/Company';
 
 
-createConnection({
-  type: 'sqlite',
-  database: sqliteDB,
-  // host: 'localhost',
-  // port: 3306,
-  // username: 'root',
-  // password: 'admin',
-  // database: 'test',
-  entities: [Company],
-  synchronize: true,
-  logging: false
-})
-.then(async connection => {
-  // here you can start to work with your entities
-  let company = new Company()
-  company.name = "ChickenStash, LLC"
-  company.nameShort = "Chicken"
 
-  await connection.manager.save(company);
-  console.log('Company has been saved');
-})
-.catch(error => console.log(error));
+// createConnection({
+//   type: 'sqlite',
+//   database: sqliteDB,
+//   // host: 'localhost',
+//   // port: 3306,
+//   // username: 'root',
+//   // password: 'admin',
+//   // database: 'test',
+//   entities: [Company],
+//   synchronize: true,
+//   logging: false
+// })
+// .then(async connection => {
+//   // here you can start to work with your entities
+//   let company = new Company()
+//   company.name = "ChickenStash, LLC"
+//   company.nameShort = "Chicken"
+
+//   await connection.manager.save(company);
+//   console.log('Company has been saved');
+// })
+// .catch(error => console.log(error));
 
 // db.serialize(function() {
 //   db.run("CREATE TABLE lorem (info TEXT)");
@@ -255,8 +261,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-import CustomerForm from './CustomerForm'
-
 
 const initialCustomerValues = {
   name: '',
@@ -331,7 +335,12 @@ const generateDocx = (templateFile: string, outputDir: string, values: DocGenVal
 
 
 
-const Application = () => {
+const Application = (props: any) => {
+
+  const {
+    dbconnection
+  } = props
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -360,107 +369,160 @@ const Application = () => {
     setSubmitting?: any;
   }
 
-  const onSubmitCustomerForm = (values: CustomerFormValues, { setSubmitting }: CustomerFormFunctions ): void => {
-      generateDocx('docs/templates/msa.docx', 'docs/output/', values).then((res: any) => {
-          alert('');
-          setSubmitting(false);
-      });
+  const onSubmitCustomerForm = async (values: CustomerFormValues, { setSubmitting }: CustomerFormFunctions ): void => {
+
+    alert("submit form")
+    await dbconnection.manager.save(Company, {
+      ...values,
+    });
+
+    const companies = await dbconnection
+      .getRepository(Company)
+      .createQueryBuilder("companies")
+      // .where("company.isActive = :isActive", { isActive: 1 })
+      .getMany()
+    alert("customer saved :D")
+
+    console.log(companies)
+  //   })
+  // .catch(error => console.log(error));
+    // orm.getRepository('company').save(values)
+      // const result = await orm.getRepository('user').find()
+      // console.log(result)
+    // generateDocx('docs/templates/msa.docx', 'docs/output/', values).then((res: any) => {
+    //   alert('');
+    //   setSubmitting(false);
+    // });
   };
+
+  // const companies = props.appContext.data.companies
+  // const companies = [
+  //   {
+  //     id: 1,
+  //     name: 'testing facility',
+  //     name_short: 'testshort',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'testing facility',
+  //     name_short: 'testshort',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'testing facility',
+  //     name_short: 'testshort',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'testing facility',
+  //     name_short: 'testshort',
+  //   },
+  // ]
+
+  const companies = dbconnection
+    .getRepository(Company)
+    .createQueryBuilder("companies")
+    // .where("company.isActive = :isActive", { isActive: 1 })
+    .getMany()
 
   return (
 
-  <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
 
-    <div className={classes.root}>
-      <CssBaseline />
+      <div className={classes.root}>
+        <CssBaseline />
 
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Customers
-          </Typography>
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              Customers
+            </Typography>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+
+            <div className={classes.flexgrow}></div>
+
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+
+            <Avatar alt="Dylan Bishop" src={Logo} className={classes.topbarAvatar} />
+          </Toolbar>
+          </AppBar>
+
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.logo}>
+            <img src={Logo} alt="devcrm"/>
           </div>
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List className={classes.drawerFirstMenu}>{mainListItems}</List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+        </Drawer>
 
-          <div className={classes.flexgrow}></div>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
 
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+              <Grid item xs={12} md={12} lg={12}>
+                <Paper className={classes.paper}>
+                  {companies.length
+                    ? <CompanyList companies={companies} />
+                    : <CustomerForm initialValues={initialCustomerValues} onSubmitForm={onSubmitCustomerForm}/> }
 
-          <Avatar alt="Dylan Bishop" src={Logo} className={classes.topbarAvatar} />
-        </Toolbar>
-        </AppBar>
+                </Paper>
+              </Grid>
 
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.logo}>
-          <img src={Logo} alt="devcrm"/>
-        </div>
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List className={classes.drawerFirstMenu}>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
+              {/* <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  asdf
+                </Paper>
+              </Grid> */}
 
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-
-            <Grid item xs={12} md={12} lg={12}>
-              <Paper className={classes.paper}>
-                <CustomerForm initialValues={initialCustomerValues} onSubmitForm={onSubmitCustomerForm}/>
-              </Paper>
             </Grid>
-
-            {/* <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                asdf
-              </Paper>
-            </Grid> */}
-
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
-  </ThemeProvider>
-)}
+            <Box pt={4}>
+              <Copyright />
+            </Box>
+          </Container>
+        </main>
+      </div>
+    </ThemeProvider>
+  )
+}
 
 export default hot(Application)

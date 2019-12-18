@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-// type CustomerFormProps = {
+// type CompanyFormProps = {
 //   initialValues: object;
 //   onSubmitForm(this: void): () => this;
 // }
@@ -77,7 +77,7 @@ interface FormProps {
   onSubmitForm?: any
 }
 
-const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (props: FormProps) => {
+const CompanyForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (props: FormProps) => {
   const {
     onSubmitForm
   } = props
@@ -106,7 +106,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
   return (
 
   <div>
-    <h2>Create New Customer</h2>
+    <h2>Create New Company</h2>
     <Formik
       initialValues={{
         name: '',
@@ -168,9 +168,9 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
               <Field
                 type="text"
                 name="name"
-                label="Customer Legal Name"
+                label="Company Legal Name"
                 // defaultValue="Default Value"
-                helperText="The full legal name of the customer which will be used all legal documents."
+                helperText="The full legal name of the company which will be used all legal documents."
                 margin="normal"
                 variant="outlined"
                 required
@@ -260,7 +260,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
               <Field
                 type="email"
                 name="email_primary"
-                label="Customer Primary Email"
+                label="Company Primary Email"
                 // defaultValue="Default Value"
                 helperText="The primary email which will recieve important documents."
                 margin="normal"
@@ -278,7 +278,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
               <Field
                 type="email"
                 name="email_secondary"
-                label="Customer Primary Email"
+                label="Company Primary Email"
                 // defaultValue="Default Value"
                 helperText="The primary email which will recieve important documents."
                 margin="normal"
@@ -335,9 +335,9 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
               <Field
                 type="text"
                 name="address_street"
-                label="Customer Primary Address Street"
+                label="Company Primary Address Street"
                 // defaultValue="Default Value"
-                helperText="The primary customer address street name."
+                helperText="The primary company address street name."
                 margin="normal"
                 variant="outlined"
 
@@ -356,7 +356,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="address_city"
                 label="City"
                 // defaultValue="Default Value"
-                helperText="The primary customer address city name."
+                helperText="The primary company address city name."
                 margin="normal"
                 variant="outlined"
 
@@ -399,7 +399,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="address_zip"
                 label="Zip"
                 // defaultValue="Default Value"
-                helperText="The primary customer address zip code."
+                helperText="The primary company address zip code."
                 margin="normal"
                 variant="outlined"
 
@@ -446,7 +446,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="contact_primary_first_name"
                 label="First Name"
                 // defaultValue="Default Value"
-                helperText="The primary customer contact."
+                helperText="The primary company contact."
                 margin="normal"
                 variant="outlined"
 
@@ -463,7 +463,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="contact_primary_last_name"
                 label="Last Name"
                 // defaultValue="Default Value"
-                helperText="The primary customer contact."
+                helperText="The primary company contact."
                 margin="normal"
                 variant="outlined"
 
@@ -483,7 +483,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="contact_primary_email"
                 label="Email"
                 // defaultValue="Default Value"
-                helperText="The primary customer contact."
+                helperText="The primary company contact."
                 margin="normal"
                 variant="outlined"
 
@@ -500,7 +500,7 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
                 name="contact_primary_role"
                 label="Role"
                 // defaultValue="Default Value"
-                helperText="The primary customer contact role."
+                helperText="The primary company contact role."
                 margin="normal"
                 variant="outlined"
 
@@ -531,4 +531,4 @@ const CustomerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (pro
   </div>
 )}
 
-export default CustomerForm
+export default CompanyForm

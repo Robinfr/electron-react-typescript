@@ -1,5 +1,6 @@
 import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
+import * as Promise from 'bluebird'
 import { createStyles, makeStyles, Theme, fade } from '@material-ui/core/styles'
 import styled, { ThemeProvider } from 'styled-components'
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -26,8 +27,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import InputBase from '@material-ui/core/InputBase'
 import Avatar from '@material-ui/core/Avatar'
 
-import CustomerForm from './CustomerForm'
+import * as R from 'ramda'
+
+import CompanyForm from './CompanyForm'
 import CompanyList from './CompanyList'
+import Invoice from './Invoice'
 import { mainListItems, secondaryListItems } from './ListItems'
 import { Company } from '../../main/entities/Company'
 
@@ -48,7 +52,7 @@ const orm = (window as any).typeorm
 //   console.log('Connected to the in-memory SQlite database.');
 // });
 
-const Logo = require('../assets/images/linkedin_avatar_small.png')
+const Logo = '../assets/images/linkedin_avatar_small.png'
 // import { createConnection } from 'typeorm';
 // import { Company } from '../models/Company';
 
@@ -262,7 +266,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 
-const initialCustomerValues = {
+const initialCompanyValues = {
   name: '',
   email: '',
   address_street: '',
@@ -333,6 +337,52 @@ const generateDocx = (templateFile: string, outputDir: string, values: DocGenVal
 
 }
 
+// import device_manager from '../fixtures/commits/git_commits_device_manager.json';
+
+// const commits = [
+//   ...require('../fixtures/commits/git_commits_device_manager.json'),
+//   ...require('../fixtures/commits/git_commits_device_manager.json'),
+// ];
+
+const getCommitsFromJsonFiles = () => {
+
+  let data = {}
+  let dir = '/Users/dylanbishop/dev/apps/electron-react-typescript/src/renderer/fixtures/commits/';
+
+  fs.readdirSync(dir).forEach(function(file) {
+    data[file.replace(/\.json$/, '')] = require(`../fixtures/commits/${file}`);
+  })
+
+  return Object.keys(data)
+    .reduce((acc, item) => R.concat(acc, data[item]), [])
+}
+
+const sortCommits = R.sortBy(R.path(['committer', 'date']));
+const commits = getCommitsFromJsonFiles()
+
+const worklogs = [
+  {
+    date: "1570583073",
+    email: "dbishoponline@gmail.com",
+    author: "Dylan Bishop",
+    hours: 4,
+    notes: 'these are the notes blah blah blah',
+  },
+  {
+    date: "1570583073",
+    email: "dbishoponline@gmail.com",
+    author: "Dylan Bishop",
+    hours: 5,
+    notes: 'these are the notes blah blah blah',
+  },
+  {
+    date: "1570583073",
+    email: "dbishoponline@gmail.com",
+    author: "Dylan Bishop",
+    hours: 2.5,
+    notes: 'these are the notes blah blah blah',
+  },
+]
 
 
 const Application = (props: any) => {
@@ -341,7 +391,7 @@ const Application = (props: any) => {
     dbconnection
   } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -351,7 +401,7 @@ const Application = (props: any) => {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  interface CustomerFormValues {
+  interface CompanyFormValues {
     name: string;
     email: string;
     address_street: string;
@@ -365,11 +415,11 @@ const Application = (props: any) => {
     contact_primary_role: string;
   }
 
-  interface CustomerFormFunctions {
+  interface CompanyFormFunctions {
     setSubmitting?: any;
   }
 
-  const onSubmitCustomerForm = async (values: CustomerFormValues, { setSubmitting }: CustomerFormFunctions ): void => {
+  const onSubmitCompanyForm = async (values: CompanyFormValues, { setSubmitting }: CompanyFormFunctions ): void => {
 
     alert("submit form")
     await dbconnection.manager.save(Company, {
@@ -381,7 +431,7 @@ const Application = (props: any) => {
       .createQueryBuilder("companies")
       // .where("company.isActive = :isActive", { isActive: 1 })
       .getMany()
-    alert("customer saved :D")
+    alert("Company saved :D")
 
     console.log(companies)
   //   })
@@ -425,104 +475,125 @@ const Application = (props: any) => {
     // .where("company.isActive = :isActive", { isActive: 1 })
     .getMany()
 
+
+  const getCommitsFromJSON = () => {
+
+    const dirs = [
+      '/Users/dylanbishop/dev/companies/dylanbishop_company/content/invoices/commits/'
+    ]
+
+    const jsonFiles = dirs.map(dir =>
+      fs.readdir(dir)
+        .then(files =>
+          files.map(file =>
+            fs.readJson(`${dir}${file}`))))
+
+    return Promise.all(Promise.resolve(jsonFiles[0]))
+  }
+
   return (
+      <ThemeProvider theme={theme}>
+          <div className={classes.root}>
+              <CssBaseline />
 
-    <ThemeProvider theme={theme}>
+              <AppBar
+                  position="absolute"
+                  className={clsx(classes.appBar, open && classes.appBarShift)}
+              >
+                  <Toolbar className={classes.toolbar}>
+                      <IconButton
+                          edge="start"
+                          color="inherit"
+                          aria-label="open drawer"
+                          onClick={handleDrawerOpen}
+                          className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                      >
+                          <MenuIcon />
+                      </IconButton>
+                      <Typography
+                          component="h1"
+                          variant="h6"
+                          color="inherit"
+                          noWrap
+                          className={classes.title}
+                      >
+                          Companys
+                      </Typography>
 
-      <div className={classes.root}>
-        <CssBaseline />
+                      <div className={classes.search}>
+                          <div className={classes.searchIcon}>
+                              <SearchIcon />
+                          </div>
+                          <InputBase
+                              placeholder="Search…"
+                              classes={{
+                                  root: classes.inputRoot,
+                                  input: classes.inputInput
+                              }}
+                              inputProps={{ 'aria-label': 'search' }}
+                          />
+                      </div>
 
-        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-          <Toolbar className={classes.toolbar}>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Customers
-            </Typography>
+                      <div className={classes.flexgrow}></div>
 
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
+                      <IconButton color="inherit">
+                          <Badge badgeContent={4} color="secondary">
+                              <NotificationsIcon />
+                          </Badge>
+                      </IconButton>
 
-            <div className={classes.flexgrow}></div>
+                      <Avatar alt="Dylan Bishop" src={Logo} className={classes.topbarAvatar} />
+                  </Toolbar>
+              </AppBar>
 
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+              <Drawer
+                  variant="permanent"
+                  classes={{
+                      paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+                  }}
+                  open={open}
+              >
+                  <div className={classes.logo}>
+                      <img src={Logo} alt="devcrm" />
+                  </div>
+                  <div className={classes.toolbarIcon}>
+                      <IconButton onClick={handleDrawerClose}>
+                          <ChevronLeftIcon />
+                      </IconButton>
+                  </div>
+                  <Divider />
+                  <List className={classes.drawerFirstMenu}>{mainListItems}</List>
+                  <Divider />
+                  <List>{secondaryListItems}</List>
+              </Drawer>
 
-            <Avatar alt="Dylan Bishop" src={Logo} className={classes.topbarAvatar} />
-          </Toolbar>
-          </AppBar>
-
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-          }}
-          open={open}
-        >
-          <div className={classes.logo}>
-            <img src={Logo} alt="devcrm"/>
-          </div>
-          <div className={classes.toolbarIcon}>
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List className={classes.drawerFirstMenu}>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
-        </Drawer>
-
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-
-              <Grid item xs={12} md={12} lg={12}>
-                <Paper className={classes.paper}>
-                  {companies.length
+              <main className={classes.content}>
+                  <div className={classes.appBarSpacer} />
+                  <Container maxWidth="lg" className={classes.container}>
+                      <Grid container spacing={3}>
+                          <Grid item xs={12} md={12} lg={12}>
+                              <Paper className={classes.paper}>
+                                  <Invoice commits={commits} worklogs={worklogs} />
+                                  {/* {companies.length
                     ? <CompanyList companies={companies} />
-                    : <CustomerForm initialValues={initialCustomerValues} onSubmitForm={onSubmitCustomerForm}/> }
+                    : <CompanyForm initialValues={initialCompanyValues} onSubmitForm={onSubmitCompanyForm}/> } */}
+                              </Paper>
+                          </Grid>
 
-                </Paper>
-              </Grid>
-
-              {/* <Grid item xs={12}>
+                          {/* <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   asdf
                 </Paper>
               </Grid> */}
-
-            </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
-          </Container>
-        </main>
-      </div>
-    </ThemeProvider>
-  )
+                      </Grid>
+                      <Box pt={4}>
+                          <Copyright />
+                      </Box>
+                  </Container>
+              </main>
+          </div>
+      </ThemeProvider>
+  );
 }
 
 export default hot(Application)

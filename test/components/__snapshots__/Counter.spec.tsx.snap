@@ -6,6 +6,7 @@ exports[`Counter component renders correctly 1`] = `
 >
   <p>
     <img
+      alt="Red cube"
       src="test-file-stub"
     />
   </p>

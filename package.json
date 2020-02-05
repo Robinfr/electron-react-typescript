@@ -26,13 +26,12 @@
     }
   },
   "lint-staged": {
-    "{src,test,mocks}/**/*.{js,ts,tsx,json,css,scss,md}": [
-      "prettier --config ./.prettierrc --write",
-      "git add"
+    "{src,test,mocks}/**/*.{json,css,scss,md}": [
+      "prettier --config ./.prettierrc --write"
     ],
     "{src,test,mocks}/**/*.{js,ts,tsx}": [
-      "eslint --ext=jsx,js,ts,tsx --fix src",
-      "git add"
+      "prettier --config ./.prettierrc --write",
+      "eslint --ext=jsx,js,ts,tsx --fix src"
     ]
   },
   "jest": {
@@ -124,7 +123,7 @@
     "husky": "^4.2.1",
     "image-webpack-loader": "^4.6.0",
     "jest": "^24.8.0",
-    "lint-staged": "^8.1.7",
+    "lint-staged": "^10.0.7",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
     "react-hot-loader": "^4.8.8",

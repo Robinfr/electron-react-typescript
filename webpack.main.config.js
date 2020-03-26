@@ -2,11 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const baseConfig = require('./webpack.base.config');
 
 module.exports = merge.smart(baseConfig, {
     target: 'electron-main',
+    watch: true,
     entry: {
         main: './src/main/main.ts'
     },
@@ -39,6 +41,10 @@ module.exports = merge.smart(baseConfig, {
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
+        new NodemonPlugin({
+            watch: path.resolve('./dist'),
+            exec: "electron ./dist/main.js"
         })
     ]
 });

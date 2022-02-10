@@ -124,7 +124,7 @@
     "image-webpack-loader": "^4.6.0",
     "jest": "^24.8.0",
     "lint-staged": "^10.0.7",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "prettier": "^1.18.2",
     "react-hot-loader": "^4.8.8",
     "react-test-renderer": "^16.8.6",
